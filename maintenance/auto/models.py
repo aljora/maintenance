@@ -60,6 +60,10 @@ class Activity(models.Model):
         blank=True,
         unit_choices=DISTANCE_UNIT_CHOICES
     )
+    part = models.OneToOneField(
+        'Part',
+        on_delete=models.CASCADE
+    )
 
 
 class Inspection(Activity):
@@ -93,18 +97,6 @@ class Part(models.Model):
     parttype = models.ForeignKey(
         'PartType',
         on_delete=models.CASCADE
-    )
-    inspection = models.OneToOneField(
-        'Inspection',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
-    replacement = models.OneToOneField(
-        'Replacement',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
     )
     car = models.ForeignKey(
         'Car',
