@@ -69,6 +69,9 @@ class Part(models.Model):
 
 class Make(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class CarModel(models.Model):
@@ -83,6 +86,9 @@ class CarModel(models.Model):
             fields=['name', 'make'],
             name='makemodel'
         )]
+    
+    def __str__(self):
+        return f'{self.make} {self.name}'
 
 
 class Car(models.Model):
@@ -91,7 +97,11 @@ class Car(models.Model):
         'CarModel',
         on_delete=models.CASCADE
     )
-    vin = models.CharField(max_length=17)
+    vin = models.CharField(
+        max_length=17,
+        blank=True,
+        verbose_name='Vehicle Identification Number',
+    )
     KILOMETRE = 'km'
     MILE = 'mi'
     DISTANCE_UNIT_CHOICES = [
@@ -103,3 +113,6 @@ class Car(models.Model):
         choices=DISTANCE_UNIT_CHOICES,
         default=KILOMETRE
     )
+    
+    def __str__(self):
+        return f'{self.year} {self.model}'
