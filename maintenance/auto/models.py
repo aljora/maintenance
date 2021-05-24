@@ -11,14 +11,6 @@ class Service(models.Model):
     description = models.TextField()
 
 
-class PartService(Service):
-    activity = models.ForeignKey(
-        'Activity',
-        on_delete=models.CASCADE,
-        related_name='services'
-    )
-
-
 class FuelService(Service):
     volume = models.PositiveSmallIntegerField()
     car = models.ForeignKey(
@@ -28,9 +20,25 @@ class FuelService(Service):
     )
 
 
+class PartService(Service):
+    activity = models.ForeignKey(
+        'Activity',
+        on_delete=models.CASCADE,
+        related_name='services'
+    )
+
+
 class Activity(models.Model):
     duration = models.DurationField()
     distance = Distance()
+
+
+class Inspection(Activity):
+    pass
+
+
+class Replacement(Activity):
+    pass
 
 
 class PartType(models.Model):
@@ -43,12 +51,14 @@ class Part(models.Model):
         on_delete=models.CASCADE
     )
     inspection = models.OneToOneField(
-        'Activity',
-        on_delete=models.SET_NULL
+        'Inspection',
+        on_delete=models.SET_NULL,
+        null=True
     )
     replacement = models.OneToOneField(
-        'Activity',
-        on_delete=models.SET_NULL
+        'Replacement',
+        on_delete=models.SET_NULL,
+        null=True
     )
     car = models.ForeignKey(
         'Car',
@@ -69,10 +79,10 @@ class CarModel(models.Model):
     )
 
     class Meta:
-        constraints = models.UniqueConstraint(
+        constraints = [models.UniqueConstraint(
             fields=['name', 'make'],
             name='makemodel'
-        )
+        )]
 
 
 class Car(models.Model):
