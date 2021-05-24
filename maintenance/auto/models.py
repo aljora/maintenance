@@ -60,6 +60,12 @@ class InspectService(Service):
         related_name='services'
     )
 
+    def __str__(self):
+        return (
+            f'{self.date} @ {self.odometer}: '
+            f'{self.activity}'
+        )
+
 
 class ReplaceService(Service):
     activity = models.ForeignKey(
@@ -67,6 +73,12 @@ class ReplaceService(Service):
         on_delete=models.CASCADE,
         related_name='services'
     )
+
+    def __str__(self):
+        return (
+            f'{self.date} @ {self.odometer}: '
+            f'{self.activity}'
+        )
 
 
 class Activity(models.Model):
@@ -82,8 +94,8 @@ class Activity(models.Model):
         on_delete=models.CASCADE
     )
 
-    # class Meta:
-        # abstract = True
+    class Meta:
+        abstract = True
 
 
 class Inspection(Activity):
