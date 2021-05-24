@@ -27,7 +27,10 @@ class Service(models.Model):
         blank=True,
         unit_choices=DISTANCE_UNIT_CHOICES
     )
-    description = models.TextField()
+    description = models.TextField(blank=True)
+
+    # class Meta:
+        # abstract = True
 
 
 class FuelService(Service):
@@ -43,10 +46,24 @@ class FuelService(Service):
         related_name='fuellings'
     )
 
+    def __str__(self):
+        return (
+            f'{self.date} @ {self.odometer}: '
+            f'{self.volume} for {self.car}'
+        )
 
-class PartService(Service):
+
+class InspectService(Service):
     activity = models.ForeignKey(
-        'Activity',
+        'Inspection',
+        on_delete=models.CASCADE,
+        related_name='services'
+    )
+
+
+class ReplaceService(Service):
+    activity = models.ForeignKey(
+        'Replacement',
         on_delete=models.CASCADE,
         related_name='services'
     )
@@ -64,6 +81,9 @@ class Activity(models.Model):
         'Part',
         on_delete=models.CASCADE
     )
+
+    # class Meta:
+        # abstract = True
 
 
 class Inspection(Activity):
