@@ -1,7 +1,7 @@
 from datetime import date
 from django.db import models
 from django_measurement.models import MeasurementField
-from measurement.measures import Distance
+from measurement.measures import Distance, Volume
 
 # Create your models here.
 
@@ -11,6 +11,11 @@ MILE = 'mi'
 DISTANCE_UNIT_CHOICES = [
     (KILOMETRE, 'Kilometre'),
     (MILE, 'Mile')
+]
+
+LITRE = 'l'
+VOLUME_UNIT_CHOICES = [
+    (LITRE, 'Litre')
 ]
 
 
@@ -26,7 +31,12 @@ class Service(models.Model):
 
 
 class FuelService(Service):
-    volume = models.PositiveSmallIntegerField()
+    volume = MeasurementField(
+        measurement=Volume,
+        null=True,
+        blank=True,
+        unit_choices=VOLUME_UNIT_CHOICES
+    )
     car = models.ForeignKey(
         'Car',
         on_delete=models.CASCADE,
@@ -88,7 +98,7 @@ class Part(models.Model):
 
 class Make(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -105,7 +115,7 @@ class CarModel(models.Model):
             fields=['name', 'make'],
             name='makemodel'
         )]
-    
+
     def __str__(self):
         return f'{self.make} {self.name}'
 
@@ -126,6 +136,6 @@ class Car(models.Model):
         choices=DISTANCE_UNIT_CHOICES,
         default=KILOMETRE
     )
-    
+
     def __str__(self):
         return f'{self.year} {self.model}'
