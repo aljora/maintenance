@@ -1,13 +1,27 @@
 from datetime import date
-from django.contrib.gis.measure import Distance
 from django.db import models
+from django_measurement.models import MeasurementField
+from measurement.measures import Distance
 
 # Create your models here.
 
 
+KILOMETRE = 'km'
+MILE = 'mi'
+DISTANCE_UNIT_CHOICES = [
+    (KILOMETRE, 'Kilometre'),
+    (MILE, 'Mile')
+]
+
+
 class Service(models.Model):
-    date = models.DateField(default=date.today)
-    odometer = Distance()
+    date = models.DateField(default=date.today, null=True, blank=True)
+    odometer = MeasurementField(
+        measurement=Distance,
+        null=True,
+        blank=True,
+        unit_choices=DISTANCE_UNIT_CHOICES
+    )
     description = models.TextField()
 
 
@@ -29,8 +43,13 @@ class PartService(Service):
 
 
 class Activity(models.Model):
-    duration = models.DurationField()
-    distance = Distance()
+    duration = models.DurationField(null=True, blank=True)
+    distance = MeasurementField(
+        measurement=Distance,
+        null=True,
+        blank=True,
+        unit_choices=DISTANCE_UNIT_CHOICES
+    )
 
 
 class Inspection(Activity):
@@ -102,12 +121,6 @@ class Car(models.Model):
         blank=True,
         verbose_name='Vehicle Identification Number',
     )
-    KILOMETRE = 'km'
-    MILE = 'mi'
-    DISTANCE_UNIT_CHOICES = [
-        (KILOMETRE, 'Kilometre'),
-        (MILE, 'Mile')
-    ]
     distance_unit = models.CharField(
         max_length=2,
         choices=DISTANCE_UNIT_CHOICES,
