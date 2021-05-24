@@ -63,15 +63,30 @@ class Activity(models.Model):
 
 
 class Inspection(Activity):
-    pass
+
+    def __str__(self):
+        return (
+            f'Inspect {self.part} '
+            f'every {self.duration} '
+            f'or {self.distance}'
+        )
 
 
 class Replacement(Activity):
-    pass
+
+    def __str__(self):
+        return (
+            f'Replace {self.part} '
+            f'every {self.duration} '
+            f'or {self.distance}'
+        )
 
 
 class PartType(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Part(models.Model):
@@ -82,18 +97,23 @@ class Part(models.Model):
     inspection = models.OneToOneField(
         'Inspection',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     replacement = models.OneToOneField(
         'Replacement',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     car = models.ForeignKey(
         'Car',
         on_delete=models.CASCADE,
         related_name='parts'
     )
+
+    def __str__(self):
+        return f'{self.car} {self.parttype}'
 
 
 class Make(models.Model):
