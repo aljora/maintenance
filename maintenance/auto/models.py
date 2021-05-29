@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from django.db import models
 from django_measurement.models import MeasurementField
 from django.urls import reverse
@@ -18,6 +18,8 @@ LITRE = 'l'
 VOLUME_UNIT_CHOICES = [
     (LITRE, 'Litre')
 ]
+
+DAYSPERMONTH = 31
 
 
 class Service(models.Model):
@@ -98,6 +100,14 @@ class Activity(models.Model):
         on_delete=models.CASCADE
     )
 
+    @property
+    def months(self):
+        return self.duration.days / DAYSPERMONTH
+
+    @months.setter
+    def months(self, value):
+        self.duration = timedelta(days=value*DAYSPERMONTH)
+
     class Meta:
         abstract = True
 
@@ -107,8 +117,8 @@ class Inspection(Activity):
     def __str__(self):
         return (
             f'Inspect {self.part} '
-            f'every {self.duration} '
-            f'or {self.distance}'
+            f'every {self.months:g} months '
+            f'or {self.distance.km:g} {KILOMETRE}'
         )
 
 
