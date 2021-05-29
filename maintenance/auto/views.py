@@ -1,12 +1,17 @@
-from .models import InspectService
+from .models import Car, InspectService
 from django.shortcuts import render
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'auto/index.html')
+class CarListView(ListView):
+    model = Car
+
+
+class CarDetailView(DetailView):
+    model = Car
 
 
 class InspectServiceCreateView(CreateView):

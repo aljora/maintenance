@@ -1,6 +1,7 @@
 from datetime import date
 from django.db import models
 from django_measurement.models import MeasurementField
+from django.urls import reverse
 from measurement.measures import Distance, Volume
 
 # Create your models here.
@@ -31,6 +32,9 @@ class Service(models.Model):
 
     # class Meta:
         # abstract = True
+
+    def get_absolute_url(self):
+        return reverse('auto:index')
 
 
 class FuelService(Service):
@@ -147,6 +151,10 @@ class Make(models.Model):
         return self.name
 
 
+    class Meta:
+        ordering = ['name']
+
+
 class CarModel(models.Model):
     name = models.CharField(max_length=255)
     make = models.ForeignKey(
@@ -162,6 +170,10 @@ class CarModel(models.Model):
 
     def __str__(self):
         return f'{self.make} {self.name}'
+
+
+    class Meta:
+        ordering = ['make']
 
 
 class Car(models.Model):
@@ -183,3 +195,10 @@ class Car(models.Model):
 
     def __str__(self):
         return f'{self.year} {self.model}'
+
+    def get_absolute_url(self):
+        return reverse('auto:car-detail', kwargs={'pk' : self.pk})
+
+
+    class Meta:
+        ordering = ['model']
