@@ -10,7 +10,12 @@ urlpatterns = [
         name='car-detail'
     ),
     path(
-        'newinspection',
+        'newinspection/',
+        views.InspectServiceCreateView.as_view(),
+        name='newinspection'
+    ),
+    path(
+        'newinspection/<int:car>/',
         views.InspectServiceCreateView.as_view(),
         name='newinspection'
     ),

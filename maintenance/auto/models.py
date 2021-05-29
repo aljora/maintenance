@@ -141,7 +141,7 @@ class Part(models.Model):
     )
 
     def __str__(self):
-        return f'{self.car} {self.parttype}'
+        return f'{self.parttype}'
 
 
 class Make(models.Model):

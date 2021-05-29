@@ -1,3 +1,4 @@
+from .forms import InspectServiceForm
 from .models import Car, InspectService
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
@@ -16,4 +17,10 @@ class CarDetailView(DetailView):
 
 class InspectServiceCreateView(CreateView):
     model = InspectService
-    fields = '__all__'
+    form_class = InspectServiceForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        print(self.kwargs['car'])
+        kwargs['car'] = self.kwargs['car']
+        return kwargs
