@@ -150,7 +150,6 @@ class Make(models.Model):
     def __str__(self):
         return self.name
 
-
     class Meta:
         ordering = ['name']
 
@@ -170,7 +169,6 @@ class CarModel(models.Model):
 
     def __str__(self):
         return f'{self.make} {self.name}'
-
 
     class Meta:
         ordering = ['make']
@@ -197,8 +195,7 @@ class Car(models.Model):
         return f'{self.year} {self.model}'
 
     def get_absolute_url(self):
-        return reverse('auto:car-detail', kwargs={'pk' : self.pk})
-
+        return reverse('auto:car-detail', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ['model']
+        ordering = ['model', 'year']

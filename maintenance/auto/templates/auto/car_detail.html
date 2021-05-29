@@ -1,5 +1,17 @@
 {% extends 'auto/layout.html' %}
 
 {% block body%}
-{{ car }}
+<div class="container">
+    <h3>{{ car }}</h3>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href={% url 'auto:newinspection' %} role="button">Report an Inspection</a>
+            <a class="btn btn-default" href="#" role="button">Configure an Inspection</a>
+        </div>
+        <div class="btn-group-vertical">
+            <a class="btn btn-primary" href="#" role="button">Report a Replacement</a>
+            <a class="btn btn-default" href="#" role="button">Configure a Replacement</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
