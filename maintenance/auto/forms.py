@@ -4,8 +4,8 @@ from django.forms import ModelForm
 
 class InspectServiceForm(ModelForm):
     class Meta:
-       model = InspectService
-       fields = '__all__'
+        model = InspectService
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         get = False
