@@ -1,5 +1,5 @@
 from .forms import InspectServiceForm
-from .models import Car, InspectService
+from .models import Car, Inspection, InspectService
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -21,6 +21,10 @@ class InspectServiceCreateView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        print(self.kwargs['car'])
         kwargs['car'] = self.kwargs['car']
         return kwargs
+
+
+class InspectionCreateView(CreateView):
+    model = Inspection
+    exclude = ['duration']
