@@ -21,7 +21,8 @@ class InspectServiceCreateView(CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['car'] = self.kwargs['car']
+        if 'car' in self.kwargs:
+            kwargs['car'] = self.kwargs['car']
         return kwargs
 
 
