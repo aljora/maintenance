@@ -111,6 +111,9 @@ class Activity(models.Model):
     class Meta:
         abstract = True
 
+    def get_absolute_url(self):
+        return reverse('auto:index')
+
 
 class Inspection(Activity):
 
@@ -152,6 +155,9 @@ class Part(models.Model):
 
     def __str__(self):
         return f'{self.parttype}'
+
+    def get_absolute_url(self):
+        return reverse('auto:part-detail', kwargs={'pk': self.pk})
 
 
 class Make(models.Model):

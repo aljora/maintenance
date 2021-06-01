@@ -5,12 +5,23 @@
     <h3>{{ car }}</h3>
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group-vertical">
-            <a class="btn btn-primary" href={% url 'auto:newinspection' car.pk %} role="button">Report an Inspection</a>
-            <a class="btn btn-default" href="#" role="button">Configure an Inspection</a>
+            <a class="btn btn-primary" href={% url 'auto:reportinspectionget' car.pk %} role="button">Report an Inspection</a>
+            <a class="btn btn-default" href={% url 'auto:configureinspection' %} role="button">Configure an Inspection</a>
         </div>
         <div class="btn-group-vertical">
             <a class="btn btn-primary" href="#" role="button">Report a Replacement</a>
             <a class="btn btn-default" href="#" role="button">Configure a Replacement</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group-vertical btn-block">
+                {% for part in car.parts.all %}
+                <a class="btn btn-default btn-lg" href={{ part.get_absolute_url }} role="button">
+                    {{ part }}
+                </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

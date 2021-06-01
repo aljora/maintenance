@@ -1,5 +1,5 @@
 from .forms import InspectServiceForm
-from .models import Car, Inspection, InspectService
+from .models import Car, Inspection, InspectService, Part
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -15,6 +15,10 @@ class CarDetailView(DetailView):
     model = Car
 
 
+class PartDetailView(DetailView):
+    model = Part
+
+
 class InspectServiceCreateView(CreateView):
     model = InspectService
     form_class = InspectServiceForm
@@ -28,4 +32,5 @@ class InspectServiceCreateView(CreateView):
 
 class InspectionCreateView(CreateView):
     model = Inspection
+    fields = '__all__'
     exclude = ['duration']

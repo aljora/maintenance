@@ -5,18 +5,28 @@ app_name = "auto"
 urlpatterns = [
     path('', views.CarListView.as_view(), name='index'),
     path(
-        'cars/<int:pk>/',
+        'car/<int:pk>/',
         views.CarDetailView.as_view(),
         name='car-detail'
     ),
     path(
-        'newinspection/',
-        views.InspectServiceCreateView.as_view(),
-        name='newinspection'
+        'part/<int:pk>/',
+        views.PartDetailView.as_view(),
+        name='part-detail'
     ),
     path(
-        'newinspection/<int:car>/',
+        'reportinspection/',
         views.InspectServiceCreateView.as_view(),
-        name='newinspection'
+        name='reportinspectionpost'
     ),
+    path(
+        'reportinspection/<int:car>/',
+        views.InspectServiceCreateView.as_view(),
+        name='reportinspectionget'
+    ),
+    path(
+        'configureinspection',
+        views.InspectionCreateView.as_view(),
+        name='configureinspection'
+    )
 ]
