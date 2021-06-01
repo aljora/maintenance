@@ -1,1 +1,23 @@
-{{ part }}
+{% extends 'auto/layout.html' %}
+
+{% block body%}
+<div class="container">
+    <h3>{{ part }}</h3>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group-vertical btn-block">
+                {% if part.inspection %}
+                <a class="btn btn-default btn-lg" href={{ part.inspection.get_absolute_url }} role="button">
+                    {{ part.inspection }}
+                </a>
+                {% endif %}
+                {% if part.replacement %}
+                <a class="btn btn-default btn-lg" href={{ part.replacement.get_absolute_url }} role="button">
+                    {{ part.replacement }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

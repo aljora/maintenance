@@ -15,6 +15,16 @@ urlpatterns = [
         name='part-detail'
     ),
     path(
+        'inspection/<int:pk>/',
+        views.InspectionDetailView.as_view(),
+        name='inspection-detail'
+    ),
+    path(
+        'replacement/<int:pk>/',
+        views.ReplacementDetailView.as_view(),
+        name='replacement-detail'
+    ),
+    path(
         'reportinspection/',
         views.InspectServiceCreateView.as_view(),
         name='reportinspectionpost'

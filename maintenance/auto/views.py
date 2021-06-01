@@ -1,5 +1,5 @@
 from .forms import InspectServiceForm
-from .models import Car, Inspection, InspectService, Part
+from .models import Car, Inspection, InspectService, Part, Replacement
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -17,6 +17,16 @@ class CarDetailView(DetailView):
 
 class PartDetailView(DetailView):
     model = Part
+
+
+class InspectionDetailView(DetailView):
+    model = Inspection
+    template_name = 'auto/activity_detail.html'
+
+
+class ReplacementDetailView(DetailView):
+    model = Replacement
+    template_name = 'auto/activity_detail.html'
 
 
 class InspectServiceCreateView(CreateView):

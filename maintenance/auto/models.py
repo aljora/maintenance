@@ -32,7 +32,8 @@ class Service(models.Model):
     )
     description = models.TextField(blank=True)
 
-    # class Meta:
+    class Meta:
+        ordering = ['-date']
         # abstract = True
 
     def get_absolute_url(self):
@@ -111,9 +112,6 @@ class Activity(models.Model):
     class Meta:
         abstract = True
 
-    def get_absolute_url(self):
-        return reverse('auto:index')
-
 
 class Inspection(Activity):
 
@@ -124,6 +122,9 @@ class Inspection(Activity):
             f'or {self.distance.km:g} {KILOMETRE}'
         )
 
+    def get_absolute_url(self):
+        return reverse('auto:inspection-detail', kwargs={'pk': self.pk})
+
 
 class Replacement(Activity):
 
@@ -133,6 +134,9 @@ class Replacement(Activity):
             f'every {self.duration} '
             f'or {self.distance}'
         )
+
+    def get_absolute_url(self):
+        return reverse('auto:replacement-detail', kwargs={'pk': self.pk})
 
 
 class PartType(models.Model):
