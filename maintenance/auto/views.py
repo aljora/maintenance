@@ -23,6 +23,11 @@ class InspectionDetailView(DetailView):
     model = Inspection
     template_name = 'auto/activity_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = InspectServiceForm()
+        return context
+
 
 class ReplacementDetailView(DetailView):
     model = Replacement

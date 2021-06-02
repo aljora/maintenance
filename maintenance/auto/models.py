@@ -69,8 +69,7 @@ class InspectService(Service):
 
     def __str__(self):
         return (
-            f'{self.date} @ {self.odometer}: '
-            f'{self.activity}'
+            f'{self.date} @ {self.odometer}'
         )
 
 
@@ -83,8 +82,7 @@ class ReplaceService(Service):
 
     def __str__(self):
         return (
-            f'{self.date} @ {self.odometer}: '
-            f'{self.activity}'
+            f'{self.date} @ {self.odometer}'
         )
 
 
@@ -117,7 +115,7 @@ class Inspection(Activity):
 
     def __str__(self):
         return (
-            f'Inspect {self.part} '
+            f'Inspect '
             f'every {self.months:g} months '
             f'or {self.distance.km:g} {KILOMETRE}'
         )
@@ -130,7 +128,7 @@ class Replacement(Activity):
 
     def __str__(self):
         return (
-            f'Replace {self.part} '
+            f'Replace '
             f'every {self.duration} '
             f'or {self.distance}'
         )

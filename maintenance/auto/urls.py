@@ -25,9 +25,9 @@ urlpatterns = [
         name='replacement-detail'
     ),
     path(
-        'reportinspection/',
+        'inspectservice/add',
         views.InspectServiceCreateView.as_view(),
-        name='reportinspectionpost'
+        name='inspectserviceadd'
     ),
     path(
         'reportinspection/<int:car>/',
