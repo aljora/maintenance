@@ -10,11 +10,15 @@
                 <a class="btn btn-default btn-lg" href={{ part.inspection.get_absolute_url }} role="button">
                     {{ part.inspection }}
                 </a>
+                {% else %}
+                {{ inspectionform }}
                 {% endif %}
                 {% if part.replacement %}
                 <a class="btn btn-default btn-lg" href={{ part.replacement.get_absolute_url }} role="button">
                     {{ part.replacement }}
                 </a>
+                {% else %}
+                {{ replacementform }}
                 {% endif %}
             </div>
         </div>

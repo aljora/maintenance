@@ -1,5 +1,19 @@
-from .models import Inspection, InspectService
+from .models import Inspection, InspectService, Replacement
 from django.forms import ModelForm
+
+
+class InspectionForm(ModelForm):
+    class Meta:
+        model = Inspection
+        fields = '__all__'
+        exclude = ['duration']
+
+
+class ReplacementForm(ModelForm):
+    class Meta:
+        model = Replacement
+        fields = '__all__'
+        exclude = ['duration']
 
 
 class InspectServiceForm(ModelForm):
