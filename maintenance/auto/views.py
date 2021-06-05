@@ -54,3 +54,8 @@ class InspectServiceCreateView(CreateView):
 class InspectionCreateView(CreateView):
     model = Inspection
     form_class = InspectionForm
+
+
+class ReplacementCreateView(CreateView):
+    model = Replacement
+    form_class = ReplacementForm

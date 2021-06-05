@@ -34,10 +34,12 @@ class InspectionForm(ModelForm):
 
 
 class ReplacementForm(ModelForm):
+    duration = MonthField()
+
+
     class Meta:
         model = Replacement
         fields = '__all__'
-        exclude = ['duration']
 
 
 class InspectServiceForm(ModelForm):

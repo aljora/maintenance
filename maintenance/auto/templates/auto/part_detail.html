@@ -12,6 +12,7 @@
                 </a>
                 {% else %}
                 <form action={% url 'auto:configureinspection' %} method="post">
+                    <h4>Add Inspection Interval</h4>
                     {% include 'auto/form_snippet.html' with form=inspectionform %}
                 </form>
                 {% endif %}
@@ -20,7 +21,10 @@
                     {{ part.replacement }}
                 </a>
                 {% else %}
-                {{ replacementform }}
+                <form action={% url 'auto:configurereplacement' %} method="post">
+                    <h4>Add Replacement Interval</h4>
+                    {% include 'auto/form_snippet.html' with form=replacementform %}
+                </form>
                 {% endif %}
             </div>
         </div>

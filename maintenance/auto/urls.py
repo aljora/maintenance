@@ -38,5 +38,10 @@ urlpatterns = [
         'configureinspection',
         views.InspectionCreateView.as_view(),
         name='configureinspection'
+    ),
+    path(
+        'configurereplacement',
+        views.ReplacementCreateView.as_view(),
+        name='configurereplacement'
     )
 ]
