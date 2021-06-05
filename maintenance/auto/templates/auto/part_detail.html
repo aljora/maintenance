@@ -11,7 +11,9 @@
                     {{ part.inspection }}
                 </a>
                 {% else %}
-                {{ inspectionform }}
+                <form action={% url 'auto:configureinspection' %} method="post">
+                    {% include 'auto/form_snippet.html' with form=inspectionform %}
+                </form>
                 {% endif %}
                 {% if part.replacement %}
                 <a class="btn btn-default btn-lg" href={{ part.replacement.get_absolute_url }} role="button">
