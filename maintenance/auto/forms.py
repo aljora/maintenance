@@ -1,5 +1,7 @@
 import datetime
-from .models import Inspection, InspectService, Replacement, DAYSPERMONTH
+from .models import Inspection, InspectService
+from .models import Replacement, ReplaceService
+from .models import Part, DAYSPERMONTH
 from django.core.exceptions import ValidationError
 from django.forms import DurationField
 from django.forms import ModelForm
@@ -56,3 +58,25 @@ class InspectServiceForm(ModelForm):
         if get:
             options = Inspection.objects.filter(part__car__pk=car)
             self.fields['activity'].queryset = options
+
+
+class ReplaceServiceForm(ModelForm):
+    class Meta:
+        model = ReplaceService
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        get = False
+        if 'car' in kwargs:
+            car = kwargs.pop('car')
+            get = True
+        super().__init__(*args, **kwargs)
+        if get:
+            options = Replacement.objects.filter(part__car__pk=car)
+            self.fields['activity'].queryset = options
+
+
+class PartForm(ModelForm):
+    class Meta:
+        model = Part
+        fields = '__all__'

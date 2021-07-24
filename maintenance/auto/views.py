@@ -1,4 +1,5 @@
-from .forms import InspectionForm, InspectServiceForm, ReplacementForm
+from .forms import InspectionForm, InspectServiceForm
+from .forms import ReplacementForm, ReplaceServiceForm
 from .models import Car, Inspection, InspectService, Part, Replacement
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
@@ -38,6 +39,11 @@ class InspectionDetailView(DetailView):
 class ReplacementDetailView(DetailView):
     model = Replacement
     template_name = 'auto/activity_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReplaceServiceForm()
+        return context
 
 
 class InspectServiceCreateView(CreateView):
