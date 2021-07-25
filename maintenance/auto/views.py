@@ -1,5 +1,6 @@
 from .forms import InspectionForm, InspectServiceForm
 from .forms import ReplacementForm, ReplaceServiceForm
+from .forms import PartForm
 from .models import Car, Inspection, InspectService, Part, Replacement
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
@@ -14,6 +15,11 @@ class CarListView(ListView):
 
 class CarDetailView(DetailView):
     model = Car
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PartForm()
+        return context
 
 
 class PartDetailView(DetailView):
@@ -55,6 +61,11 @@ class InspectServiceCreateView(CreateView):
         if 'car' in self.kwargs:
             kwargs['car'] = self.kwargs['car']
         return kwargs
+
+
+class PartCreateView(CreateView):
+    model = Part
+    form_class = PartForm
 
 
 class InspectionCreateView(CreateView):

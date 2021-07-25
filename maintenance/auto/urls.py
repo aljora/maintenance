@@ -30,9 +30,9 @@ urlpatterns = [
         name='inspectserviceadd'
     ),
     path(
-        'reportinspection/<int:car>/',
-        views.InspectServiceCreateView.as_view(),
-        name='reportinspectionget'
+        'configurepart',
+        views.PartCreateView.as_view(),
+        name='configurepart'
     ),
     path(
         'configureinspection',
