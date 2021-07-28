@@ -12,6 +12,7 @@
                 </a>
                 {% endfor %}
                 <form action={% url 'auto:configurepart' %} method="post">
+                    <h4>Add Part</h4>
                     {% csrf_token %}
                     {% include 'auto/formfield_snippet.html' with field=form.parttype %}
                     <div class="row mb-3">

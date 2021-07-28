@@ -13,7 +13,31 @@
                 {% else %}
                 <form action={% url 'auto:configureinspection' %} method="post">
                     <h4>Add Inspection Interval</h4>
-                    {% include 'auto/form_snippet.html' with form=inspectionform %}
+                    {% csrf_token %}
+                    {% include 'auto/formfield_snippet.html' with field=inspectionform.duration %}
+                    {% include 'auto/formfield_snippet.html' with field=inspectionform.distance %}
+                    <div class="row mb-3">
+                        {{ inspectionform.part.errors }}
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">
+                            {{ inspectionform.part.label }}
+                        </label>
+                        <div class="col-sm-10">
+                            <select name="part" required id="id_part">
+                                <option value="{{ object.id }}" selected>
+                                    {{ object }}
+                                </option>
+                            </select>
+                        </div>
+                        {% if inspectionform.part.help_text %}
+                        <p class="help">{{ inspectionform.part.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-10"></div>
+                        <div class="col-sm-10">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </div>
                 </form>
                 {% endif %}
                 {% if part.replacement %}
@@ -23,7 +47,31 @@
                 {% else %}
                 <form action={% url 'auto:configurereplacement' %} method="post">
                     <h4>Add Replacement Interval</h4>
-                    {% include 'auto/form_snippet.html' with form=replacementform %}
+                    {% csrf_token %}
+                    {% include 'auto/formfield_snippet.html' with field=replacementform.duration %}
+                    {% include 'auto/formfield_snippet.html' with field=replacementform.distance %}
+                    <div class="row mb-3">
+                        {{ replacementform.part.errors }}
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">
+                            {{ replacementform.part.label }}
+                        </label>
+                        <div class="col-sm-10">
+                            <select name="part" required id="id_part">
+                                <option value="{{ object.id }}" selected>
+                                    {{ object }}
+                                </option>
+                            </select>
+                        </div>
+                        {% if replacementform.part.help_text %}
+                        <p class="help">{{ replacementform.part.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-10"></div>
+                        <div class="col-sm-10">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </div>
                 </form>
                 {% endif %}
             </div>

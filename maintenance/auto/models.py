@@ -129,8 +129,8 @@ class Replacement(Activity):
     def __str__(self):
         return (
             f'Replace '
-            f'every {self.duration} '
-            f'or {self.distance}'
+            f'every {self.months:g} months '
+            f'or {self.distance.km:g} {KILOMETRE}'
         )
 
     def get_absolute_url(self):
