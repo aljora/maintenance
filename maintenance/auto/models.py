@@ -140,6 +140,9 @@ class Replacement(Activity):
 class PartType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -154,6 +157,9 @@ class Part(models.Model):
         on_delete=models.CASCADE,
         related_name='parts'
     )
+
+    class Meta:
+        ordering = ['parttype']
 
     def __str__(self):
         return f'{self.parttype}'
@@ -203,6 +209,7 @@ class Car(models.Model):
         blank=True,
         verbose_name='Vehicle Identification Number',
     )
+    name = models.CharField(max_length=255, blank=True)
     distance_unit = models.CharField(
         max_length=2,
         choices=DISTANCE_UNIT_CHOICES,
@@ -210,10 +217,14 @@ class Car(models.Model):
     )
 
     def __str__(self):
-        return f'{self.year} {self.model}'
+        namepart = f' "{self.name}"'
+        return (
+            f'{self.year} {self.model}'
+            f'{namepart if self.name else ""}'
+        )
 
     def get_absolute_url(self):
         return reverse('auto:car-detail', kwargs={'pk': self.pk})
 
     class Meta:
-        ordering = ['model', 'year']
+        ordering = ['model', 'year', 'name']
