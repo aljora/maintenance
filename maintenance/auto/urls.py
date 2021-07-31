@@ -30,6 +30,11 @@ urlpatterns = [
         name='inspectserviceadd'
     ),
     path(
+        'replaceservice/add',
+        views.ReplaceServiceCreateView.as_view(),
+        name='replaceserviceadd'
+    ),
+    path(
         'configurepart',
         views.PartCreateView.as_view(),
         name='configurepart'

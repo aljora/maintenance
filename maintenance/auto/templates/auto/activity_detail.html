@@ -1,6 +1,6 @@
 {% extends 'auto/layout.html' %}
 
-{% block body%}
+{% block body %}
 <div class="container">
     <h3>{{ object.part.car }}</h3>
     <h3>{{ object.part }}</h3>
@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <form action={% url 'auto:inspectserviceadd' %} method="post">
+            <form action={% block url1 %}{% url 'auto:index' %}{% endblock %} method="post">
                 <h4>Add Service Record</h4>
                 {% csrf_token %}
                 {% include 'auto/formfield_snippet.html' with field=form.date %}

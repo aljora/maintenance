@@ -1,7 +1,8 @@
 from .forms import InspectionForm, InspectServiceForm
 from .forms import ReplacementForm, ReplaceServiceForm
 from .forms import PartForm
-from .models import Car, Inspection, InspectService, Part, Replacement
+from .models import Car, Inspection, InspectService, Part
+from .models import Replacement, ReplaceService
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -34,7 +35,7 @@ class PartDetailView(DetailView):
 
 class InspectionDetailView(DetailView):
     model = Inspection
-    template_name = 'auto/activity_detail.html'
+    template_name = 'auto/inspection_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,7 +45,7 @@ class InspectionDetailView(DetailView):
 
 class ReplacementDetailView(DetailView):
     model = Replacement
-    template_name = 'auto/activity_detail.html'
+    template_name = 'auto/replacement_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,6 +56,17 @@ class ReplacementDetailView(DetailView):
 class InspectServiceCreateView(CreateView):
     model = InspectService
     form_class = InspectServiceForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'car' in self.kwargs:
+            kwargs['car'] = self.kwargs['car']
+        return kwargs
+
+
+class ReplaceServiceCreateView(CreateView):
+    model = ReplaceService
+    form_class = ReplaceServiceForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
