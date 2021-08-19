@@ -1,7 +1,7 @@
 version: "2.4"
    
 services:
-  db:
+  maintenance-db:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
@@ -17,4 +17,4 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - maintenance-db
