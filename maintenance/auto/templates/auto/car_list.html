@@ -9,6 +9,10 @@
                 <a class="btn btn-default btn-lg" href={{ car.get_absolute_url }} role="button">
                     {{ car }}
                 </a>
+                {% empty %}
+                <a class="btn btn-default btn-lg" href={% url 'maintenance:admin' %} role="button">
+                    Admin
+                </a>
                 {% endfor %}
             </div>
         </div>
