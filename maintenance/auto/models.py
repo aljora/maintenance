@@ -107,6 +107,18 @@ class Activity(models.Model):
     def months(self, value):
         self.duration = timedelta(days=value*DAYSPERMONTH)
 
+    @property
+    def intervalstr(self):
+        if self.months:
+            monthstr = f'every {self.months:g} months '
+            if self.distance:
+                return monthstr + f'or {self.distance.km:g} {KILOMETRE}'
+            else:
+                return monthstr
+        elif self.distance:
+            return f'every {self.distance.km:g} {KILOMETRE}'
+        return None
+
     class Meta:
         abstract = True
 
@@ -114,11 +126,7 @@ class Activity(models.Model):
 class Inspection(Activity):
 
     def __str__(self):
-        return (
-            f'Inspect '
-            f'every {self.months:g} months '
-            f'or {self.distance.km:g} {KILOMETRE}'
-        )
+        return f'Inspect ' + self.intervalstr
 
     def get_absolute_url(self):
         return reverse('auto:inspection-detail', kwargs={'pk': self.pk})
@@ -127,11 +135,7 @@ class Inspection(Activity):
 class Replacement(Activity):
 
     def __str__(self):
-        return (
-            f'Replace '
-            f'every {self.months:g} months '
-            f'or {self.distance.km:g} {KILOMETRE}'
-        )
+        return f'Replace ' + self.intervalstr
 
     def get_absolute_url(self):
         return reverse('auto:replacement-detail', kwargs={'pk': self.pk})
