@@ -12,6 +12,15 @@ services:
   web:
     build: ./maintenance
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-ui8bn3y%)lgl0no#t=6+pvfe9iz2&o^zz=43_xh#f%iu0q0=%7
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOST=maintenance.home
+      - DJANGO_DB_NAME=postgres
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=postgres
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
     volumes:
       - ./maintenance:/code
     ports:
