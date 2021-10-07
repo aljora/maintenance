@@ -13,7 +13,7 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     environment:
-      - DJANGO_SECRET_KEY=django-insecure-ui8bn3y%)lgl0no#t=6+pvfe9iz2&o^zz=43_xh#f%iu0q0=%7
+      - DJANGO_SECRET_KEY_FILE=/run/secrets/django_key
       - DJANGO_DEBUG=True
       - DJANGO_ALLOWED_HOST=localhost
       - DJANGO_DB_NAME=postgres
@@ -27,3 +27,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
+
+secrets:
+  django_key: django-insecure-ui8bn3y%)lgl0no#t=6+pvfe9iz2&o^zz=43_xh#f%iu0q0=%7
