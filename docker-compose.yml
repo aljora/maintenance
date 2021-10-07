@@ -12,6 +12,8 @@ services:
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
+    secrets:
+      - django_key
     environment:
       - DJANGO_SECRET_KEY_FILE=/run/secrets/django_key
       - DJANGO_DEBUG=True
