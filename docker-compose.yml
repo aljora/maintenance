@@ -20,7 +20,7 @@ services:
       - DJANGO_ALLOWED_HOST=localhost
       - DJANGO_DB_NAME=postgres
       - DJANGO_DB_USER=postgres
-      - DJANGO_DB_PASSWORD=postgres
+      - DJANGO_DB_PASSWORD_FILE=/run/secrets/db_password
       - DJANGO_DB_HOST=db
       - DJANGO_DB_PORT=5432
     volumes:
@@ -32,4 +32,6 @@ services:
 
 secrets:
   django_key:
-    file: examplekey
+    file: ./examplesecrets/key
+  db_password:
+    file: ./examplesecrets/password

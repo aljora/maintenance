@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+def getsecret(source):
+    with open(os.getenv()) as keyfile:
+        return keyfile.read().rstrip('\n')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,8 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.getenv('DJANGO_SECRET_KEY_FILE')) as keyfile:
-    SECRET_KEY = keyfile.read().rstrip('\n')
+SECRET_KEY = getsecret('DJANGO_SECRET_KEY_FILE')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG') == 'True'
@@ -84,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DJANGO_DB_NAME'),
         'USER': os.getenv('DJANGO_DB_USER'),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'PASSWORD': getsecret('DJANGO_DB_PASSWORD_FILE'),
         'HOST': os.getenv('DJANGO_DB_HOST'),
         'PORT': os.getenv('DJANGO_DB_PORT'),
     }
