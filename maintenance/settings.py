@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 def getsecret(source):
-    with open(os.getenv()) as keyfile:
+    with open(os.getenv(source)) as keyfile:
         return keyfile.read().rstrip('\n')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
