@@ -1,6 +1,7 @@
 import datetime
 from .models import Inspection, InspectService
 from .models import Replacement, ReplaceService
+from .models import FuelService
 from .models import Part, DAYSPERMONTH
 from django.core.exceptions import ValidationError
 from django.forms import DurationField
@@ -74,6 +75,21 @@ class ReplaceServiceForm(ModelForm):
         if get:
             options = Replacement.objects.filter(part__car__pk=car)
             self.fields['activity'].queryset = options
+
+
+class FuelServiceForm(ModelForm):
+    class Meta:
+        model = FuelService
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        get = False
+        if 'car' in kwargs:
+            car = kwargs.pop('car')
+            get = True
+        super().__init__(*args, **kwargs)
+        if get:
+            self.fields['car'].queryset = car
 
 
 class PartForm(ModelForm):

@@ -25,6 +25,11 @@ urlpatterns = [
         name='replacement-detail'
     ),
     path(
+        'fuel/<int:pk>/',
+        views.FuelDetailView.as_view(),
+        name='fuel-detail'
+    ),
+    path(
         'inspectservice/add',
         views.InspectServiceCreateView.as_view(),
         name='inspectserviceadd'
@@ -33,6 +38,11 @@ urlpatterns = [
         'replaceservice/add',
         views.ReplaceServiceCreateView.as_view(),
         name='replaceserviceadd'
+    ),
+    path(
+        'fuelservice/add',
+        views.FuelServiceCreateView.as_view(),
+        name='fuelserviceadd'
     ),
     path(
         'configurepart',

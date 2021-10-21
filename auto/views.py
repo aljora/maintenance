@@ -1,8 +1,10 @@
 from .forms import InspectionForm, InspectServiceForm
 from .forms import ReplacementForm, ReplaceServiceForm
+from .forms import FuelServiceForm
 from .forms import PartForm
 from .models import Car, Inspection, InspectService, Part
 from .models import Replacement, ReplaceService
+from .models import FuelService
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -53,6 +55,16 @@ class ReplacementDetailView(DetailView):
         return context
 
 
+class FuelDetailView(DetailView):
+    model = Car
+    template_name = 'auto/fuel_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = FuelServiceForm()
+        return context
+
+
 class InspectServiceCreateView(CreateView):
     model = InspectService
     form_class = InspectServiceForm
@@ -67,6 +79,17 @@ class InspectServiceCreateView(CreateView):
 class ReplaceServiceCreateView(CreateView):
     model = ReplaceService
     form_class = ReplaceServiceForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'car' in self.kwargs:
+            kwargs['car'] = self.kwargs['car']
+        return kwargs
+
+
+class FuelServiceCreateView(CreateView):
+    model = FuelService
+    form_class = FuelServiceForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

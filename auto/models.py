@@ -59,6 +59,9 @@ class FuelService(Service):
             f'{self.volume} for {self.car}'
         )
 
+    def get_absolute_url(self):
+        return self.car.get_fuel_url()
+
 
 class InspectService(Service):
     activity = models.ForeignKey(
@@ -229,6 +232,9 @@ class Car(models.Model):
 
     def get_absolute_url(self):
         return reverse('auto:car-detail', kwargs={'pk': self.pk})
+
+    def get_fuel_url(self):
+        return reverse('auto:fuel-detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['model', 'year', 'name']
