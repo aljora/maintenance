@@ -55,8 +55,7 @@ class FuelService(Service):
 
     def __str__(self):
         return (
-            f'{self.date} @ {self.odometer}: '
-            f'{self.volume} for {self.car}'
+            f'{self.date} @ {self.odometer}'
         )
 
     def get_absolute_url(self):
