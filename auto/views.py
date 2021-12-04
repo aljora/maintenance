@@ -5,6 +5,7 @@ from .forms import PartForm
 from .models import Car, Inspection, InspectService, Part
 from .models import Replacement, ReplaceService
 from .models import FuelService
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -65,7 +66,7 @@ class FuelDetailView(DetailView):
         return context
 
 
-class InspectServiceCreateView(CreateView):
+class InspectServiceCreateView(LoginRequiredMixin, CreateView):
     model = InspectService
     form_class = InspectServiceForm
 
@@ -76,7 +77,7 @@ class InspectServiceCreateView(CreateView):
         return kwargs
 
 
-class ReplaceServiceCreateView(CreateView):
+class ReplaceServiceCreateView(LoginRequiredMixin, CreateView):
     model = ReplaceService
     form_class = ReplaceServiceForm
 
@@ -87,7 +88,7 @@ class ReplaceServiceCreateView(CreateView):
         return kwargs
 
 
-class FuelServiceCreateView(CreateView):
+class FuelServiceCreateView(LoginRequiredMixin, CreateView):
     model = FuelService
     form_class = FuelServiceForm
 
@@ -98,16 +99,16 @@ class FuelServiceCreateView(CreateView):
         return kwargs
 
 
-class PartCreateView(CreateView):
+class PartCreateView(LoginRequiredMixin, CreateView):
     model = Part
     form_class = PartForm
 
 
-class InspectionCreateView(CreateView):
+class InspectionCreateView(LoginRequiredMixin, CreateView):
     model = Inspection
     form_class = InspectionForm
 
 
-class ReplacementCreateView(CreateView):
+class ReplacementCreateView(LoginRequiredMixin, CreateView):
     model = Replacement
     form_class = ReplacementForm

@@ -1,8 +1,9 @@
 from . import views
-from django.urls import path
+from django.urls import path, include
 
 app_name = "auto"
 urlpatterns = [
+    path('accounts/', include('django.contrib.auth.urls')),
     path('', views.CarListView.as_view(), name='index'),
     path(
         'car/<int:pk>/',
