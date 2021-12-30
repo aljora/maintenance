@@ -1,0 +1,10 @@
+{% extends 'auto/layout.html' %}
+
+{% block body%}
+<div class="container">
+    <form action={% url 'auto:fuelserviceadd' %} method="post">
+        {% include 'auto/form_snippet.html' %}
+    </form>
+</div>
+{% endblock %}
+
