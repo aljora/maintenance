@@ -23,6 +23,7 @@
         <div class="col">
             <form action={% block url1 %}{% url 'auto:index' %}{% endblock %} method="post">
                 <h4>Add Service Record</h4>
+				{% if request.user.is_authenticated %}
                 {% csrf_token %}
                 {% include 'auto/formfield_snippet.html' with field=form.date %}
                 {% include 'auto/formfield_snippet.html' with field=form.odometer %}
@@ -49,6 +50,7 @@
                         <input type="submit" value="Submit">
                     </div>
                 </div>
+				{% endif %}
             </form>
         </div>
     </div>
