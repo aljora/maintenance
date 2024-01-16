@@ -1,0 +1,38 @@
+version: "2.4"
+   
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - ./data/db:/var/lib/postgresql/data:Z
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    secrets:
+      - django_key
+      - db_password
+    environment:
+      - DJANGO_SECRET_KEY_FILE=/run/secrets/django_key
+      - DJANGO_DEBUG=True
+      - DJANGO_ALLOWED_HOST=localhost
+      - DJANGO_DB_NAME=postgres
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD_FILE=/run/secrets/db_password
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+    volumes:
+      - .:/code:Z
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+secrets:
+  django_key:
+    file: ./examplesecrets/key
+  db_password:
+    file: ./examplesecrets/password

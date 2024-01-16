@@ -90,6 +90,9 @@ DATABASES = {
         'PASSWORD': getsecret('DJANGO_DB_PASSWORD_FILE'),
         'HOST': os.getenv('DJANGO_DB_HOST'),
         'PORT': os.getenv('DJANGO_DB_PORT'),
+    } if os.getenv('DJANGO_DB_NAME') else {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
