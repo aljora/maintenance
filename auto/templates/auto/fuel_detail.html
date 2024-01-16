@@ -23,7 +23,8 @@
     </table>
     <div class="row">
         <div class="col">
-            <form action={% block url1 %}{% url 'auto:fuelserviceadd' %}{% endblock %} method="post">
+			{% if request.user.is_authenticated %}
+			<form action={% block url1 %}{% url 'auto:fuelserviceadd' %}{% endblock %} method="post">
                 <h4>Add Service Record</h4>
                 {% csrf_token %}
                 {% include 'auto/formfield_snippet.html' with field=form.date %}
@@ -53,6 +54,11 @@
                     </div>
                 </div>
             </form>
+			{% else %}
+			<a class="btn btn-default btn-lg" href={% url 'admin:login' %} role="button">
+				Please login to add entries
+            </a>
+			{% endif %}
         </div>
     </div>
 </div>
