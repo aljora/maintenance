@@ -10,6 +10,7 @@ services:
       - DJANGO_SECRET_KEY_FILE=/run/secrets/django_key
       - DJANGO_DEBUG=True
       - DJANGO_ALLOWED_HOST=localhost
+      - DJANGO_CSRF_TRUSTED_ORIGIN=http://localhost
     volumes:
       - .:/code:Z
     ports:
